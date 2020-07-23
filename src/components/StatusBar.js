@@ -1,13 +1,10 @@
 import React from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
-const StatusBar = () => {
-
-  const now = 60
-
+const StatusBar = ({ color, percentage, label }) => {
   return(
     <div>
-      <ProgressBar variant="success" now={now} label={`Hunger: ${now}%`} />
+      <ProgressBar variant={color} now={percentage} label={label} />
     </div>
   )
 }

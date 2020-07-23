@@ -1,19 +1,41 @@
 import React from 'react';
-import { useStore } from '../contexts/GameContext'
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { inject, useObserver } from 'mobx-react';
 
-import StatusBar from '../components/StatusBar';
+import './Game.css';
+import StatusHeader from '../components/StatusHeader';
+import Pet from '../components/Pet';
+import ActionBar from '../components/ActionBar';
+import { useInterval } from '../helpers/useInterval';
 
-const Game = () => {
-  const gameStore = useStore();
+const Game = ({ gameStore }) => {
+  const feedPet = () => {
+    gameStore.updateAttribute(gameStore.hunger, -15);
+  };
+  const cleanPet = () => {
+    gameStore.updateAttribute(gameStore.dirtiness, -15);
+  };
+  const petPet = () => {
+    gameStore.updateAttribute(gameStore.happiness, 5);
+  };
 
-  return (
+  useInterval(() => {
+    // console.log(gameStore);
+    // Your custom logic here
+    gameStore.updateAttributes();
+  }, 1000);
+
+  return useObserver(() => (
     <div>
-      <StatusBar />
+      <StatusHeader gameStore={gameStore} />
+      <br />
+      <br />
+      <br />
+      <Pet petPet={petPet} />
+      <br />
+      <br />
+      <ActionBar feedPet={feedPet} cleanPet={cleanPet} />
     </div>
-  );
+  ));
 }
 
-export default Game;
+export default inject('gameStore')(Game);

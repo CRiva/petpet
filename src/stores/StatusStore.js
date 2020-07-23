@@ -1,18 +1,18 @@
-import { action, observable } from "mobx";
+import { observable } from "mobx";
 
-export class StatusStore {
-  @observable statusName;
-  @observable statusColor;
-  @observable statusPercentage;
+export default class StatusStore {
+  @observable name;
+  @observable color;
+  @observable percentage;
   
   constructor(attributes = {}) {
     const {
-      statusName,
-      statusColor,
-      statusPercentage
+      name,
+      percentage,
+      color
     } = attributes;
-    this.hunger = statusName || 'status';
-    this.happiness = statusColor || 'success';
-    this.dirtiness = statusPercentage || 100;
+    this.name = name || 'status';
+    this.percentage = percentage;
+    this.color = color || 'success';
   }
 }

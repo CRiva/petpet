@@ -1,15 +1,19 @@
 import React from 'react';
+import { Provider } from 'mobx-react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import './App.css';
 
+import './App.css';
 import Game from './Game';
+import gameStore from '../stores/GameStore';
+
+const stores = { gameStore };
 
 const App = () => {
   return (
-    <div className='App' >
+    <Provider {...stores}>
       <Container className='App-Container' >
         <Row>
           <Col>
@@ -17,7 +21,7 @@ const App = () => {
           </Col>
         </Row>
       </Container>
-    </div>
+    </Provider>
   );
 }
 
