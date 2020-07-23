@@ -26,10 +26,10 @@ export class GameStore {
       happiness,
       dirtiness
     } = attributes;
-    this.hunger = hunger || new StatusStore({ name: 'Hunger', percentage: 10, color: 'danger' });
+    this.hunger = hunger || new StatusStore({ name: 'Hunger', percentage: 0, color: 'danger' });
     this.happiness = happiness || new StatusStore({ name: 'Happiness', percentage: 100, color: 'success' });
-    this.dirtiness = dirtiness || new StatusStore({ name: 'Dirtiness', percentage: 10, color: 'secondary' });
-    this.poopStore = new PoopStore();
+    this.dirtiness = dirtiness || new StatusStore({ name: 'Dirtiness', percentage: 0, color: 'secondary' });
+    this.poop = new PoopStore();
     this.image = happyFace;
     this.checkDirtiness();
 

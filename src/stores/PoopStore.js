@@ -30,6 +30,15 @@ export default class PoopStore {
     this.poopArea.removeChild(poop);
     this.poops = this.poops - 1;
   }
+
+
+  // @action
+  // gameOver = () => {
+  //   while (this.poopArea.hasChildNodes()) {
+  //     this.poopArea.removeChild(this.poopArea.lastChild);
+  // }
+  //   this.poops = 0;
+  // }
   
   @action
    createPoop = () => {

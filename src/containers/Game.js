@@ -22,9 +22,20 @@ const Game = ({ gameStore }) => {
 
   const feedPet = () => {
     gameStore.updateAttribute(gameStore.hunger, -15);
+    gameStore.updateAttribute(gameStore.happiness, +10);
   };
   const cleanPet = () => {
-    gameStore.updateAttribute(gameStore.dirtiness, -15);
+    while (gameStore.poop.poops>0) {
+      gameStore.poop.poops -=1;
+      gameStore.poop.poopArea.removeChild(gameStore.poop.poopArea.lastChild);
+  }
+    gameStore.dirtiness.percentage = 0;
+    if (gameStore.isHungry){
+      gameStore.updateAttribute(gameStore.happiness, +50);
+    }else{
+      gameStore.updateAttribute(gameStore.happiness, +100);
+    }
+    
   };
   const petPet = () => {
     gameStore.updateAttribute(gameStore.happiness, 5);
@@ -34,9 +45,16 @@ const Game = ({ gameStore }) => {
     gameStore.updateAttributes();
   }, 1000);
 
+
   useInterval(() => {
     gameStore.poopStore.createPoop();
   }, 5000);
+
+  // const resetInterval = () => setCount(0);
+
+  // if (gameStore.dirtiness == 100){
+  //   resetInterval();
+  // }
 
   return useObserver(() => (
     <div>
