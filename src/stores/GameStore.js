@@ -13,6 +13,7 @@ export class GameStore {
   @observable image;
   @observable poopStore;
   @observable recentlyFed;
+  @observable score;
 
   hungerRate = 5;
   happinessRate = -2;
@@ -34,6 +35,7 @@ export class GameStore {
     this.poopStore = new PoopStore();
     this.image = happyFace;
     this.recentlyFed = 0;
+    this.score = 0
     this.checkDirtiness();
 
     reaction(

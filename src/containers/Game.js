@@ -62,6 +62,7 @@ const Game = ({ gameStore }) => {
 
   useInterval(() => {
     gameStore.updateAttributes();
+    gameStore.score = gameStore.score + 1;
   }, 1000);
 
 
@@ -100,10 +101,10 @@ const Game = ({ gameStore }) => {
 
   return useObserver(() => (
     <div>
-      <HiddenArea />
+      <HiddenArea score={gameStore.score} />
       <PoopArea>
         <StatusHeader gameStore={gameStore} />
-        
+        <h3>Score: {gameStore.score}</h3>
         <Pet petPet={petPet} image={gameStore.image} />
         
         <ActionBar feedPet={feedPet} cleanPet={cleanPet} />
