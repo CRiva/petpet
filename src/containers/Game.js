@@ -10,6 +10,11 @@ import PoopArea from '../components/PoopArea';
 import poop from '../poop.png';
 import HiddenArea from '../components/HiddenArea';
 
+import bathSound from '../bathSound.mp3'
+import eatSound from '../eatSound.mp3'
+import laughSound from '../lol.mp3'
+import pickPoopSound from '../pickPoop.mp3'
+
 
 const Game = ({ gameStore }) => {
   useEffect(() => {
@@ -20,10 +25,12 @@ const Game = ({ gameStore }) => {
   }, [])
 
   const feedPet = () => {
+    document.getElementById('eatSound').play();
     gameStore.updateAttribute(gameStore.hunger, -15);
     gameStore.updateAttribute(gameStore.happiness, +10);
   };
   const cleanPet = () => {
+    document.getElementById('bathSound').play();
     while (gameStore.poop.poops>0) {
 
       gameStore.poop.poopArea.removeChild(gameStore.poop.poopArea.lastChild);
@@ -38,6 +45,7 @@ const Game = ({ gameStore }) => {
     
   };
   const petPet = () => {
+    document.getElementById('laughSound').play();
     gameStore.updateAttribute(gameStore.happiness, 5);
   };
 
@@ -89,15 +97,24 @@ const Game = ({ gameStore }) => {
           <h1>Your pet died from being burried in it's own crap... Are you sure you're ready to be a pet owner?</h1>
           <h1>Click the poop to restart</h1>
         </div>
+        <audio id="bathSound">
+            <source src={bathSound}></source>
+        </audio>
+        <audio id="eatSound">
+            <source src={eatSound}></source>
+        </audio>
+        <audio id="laughSound">
+            <source src={laughSound}></source>
+        </audio>
+        <audio id="pickPoopSound">
+            <source src={pickPoopSound}></source>
+        </audio>
       </HiddenArea>
       <PoopArea>
         <StatusHeader gameStore={gameStore} />
-        <br />
-        <br />
-        <br />
+        
         <Pet petPet={petPet} image={gameStore.image} />
-        <br />
-        <br />
+        
         <ActionBar feedPet={feedPet} cleanPet={cleanPet} />
       </PoopArea>
     </div>

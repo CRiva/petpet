@@ -42,7 +42,10 @@ export default class PoopStore {
     poop.style.left = `${x}px`;
     poop.style.top = `${y}px`;
     poop.style.display = 'block';
-    poop.onclick = () => this.removePoop(poop);
+    poop.onclick = () => {
+      this.removePoop(poop);
+      document.getElementById('pickPoopSound').play();
+    }
     this.poops = this.poops + 1;
     this.poopArea.appendChild(poop);
   }
