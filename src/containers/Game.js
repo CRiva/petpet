@@ -31,10 +31,10 @@ const Game = ({ gameStore }) => {
   };
   const cleanPet = () => {
     document.getElementById('bathSound').play();
-    while (gameStore.poop.poops>0) {
+    while (gameStore.poopStore.poops>0) {
 
-      gameStore.poop.poopArea.removeChild(gameStore.poop.poopArea.lastChild);
-      gameStore.poop.poops -=1;
+      gameStore.poopStore.poopArea.removeChild(gameStore.poopStore.poopArea.lastChild);
+      gameStore.poopStore.poops -=1;
   }
     gameStore.dirtiness.percentage = 0;
     if (gameStore.isHungry){
@@ -56,7 +56,7 @@ const Game = ({ gameStore }) => {
 
 
   useInterval(() => {
-    gameStore.poop.createPoop();
+    gameStore.poopStore.createPoop();
   }, 3000);
 
 
@@ -70,9 +70,9 @@ const Game = ({ gameStore }) => {
 
   useInterval(() => {
     
-    if(gameStore.poop.poops > 5){
-      while (gameStore.poop.poopArea.hasChildNodes()) {
-        gameStore.poop.poopArea.removeChild(gameStore.poop.poopArea.lastChild);
+    if(gameStore.poopStore.poops > 5){
+      while (gameStore.poopStore.poopArea.hasChildNodes()) {
+        gameStore.poopStore.poopArea.removeChild(gameStore.poopStore.poopArea.lastChild);
       }
       clearAll();
       const end = document.querySelector('.gameOver').cloneNode(true);
@@ -82,8 +82,8 @@ const Game = ({ gameStore }) => {
         window.location.reload(); 
       };
       end.style.display = 'block';
-      gameStore.poop.poopArea.appendChild(end);
-      gameStore.poop.poopArea.appendChild(restart);
+      gameStore.poopStore.poopArea.appendChild(end);
+      gameStore.poopStore.poopArea.appendChild(restart);
     }
   }, 6000);
 
