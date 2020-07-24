@@ -12,10 +12,12 @@ export class GameStore {
   @observable dirtiness;
   @observable image;
   @observable poopStore;
+  @observable recentlyFed;
 
   hungerRate = 5;
   happinessRate = -2;
   dirtinessRate = 3;
+  poopRate = 3;
 
   isHungry = false;
   isDirty = false;
@@ -31,6 +33,7 @@ export class GameStore {
     this.dirtiness = dirtiness || new StatusStore({ name: 'Dirtiness', percentage: 0, color: 'secondary' });
     this.poopStore = new PoopStore();
     this.image = happyFace;
+    this.recentlyFed = 0;
     this.checkDirtiness();
 
     reaction(
@@ -96,6 +99,15 @@ export class GameStore {
       attribute.percentage = 0
     } else {
       attribute.percentage = attribute.percentage + amount;
+    }
+  }
+
+  @action
+  updateRecentlyFed = (amount) => {
+    if (this.recentlyFed + amount <= 0) {
+      this.recentlyFed = 0
+    } else {
+      this.recentlyFed = this.recentlyFed + amount;
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { inject, useObserver } from 'mobx-react';
 
 import './Game.css';
@@ -12,6 +12,8 @@ import HiddenArea from '../components/HiddenArea';
 
 
 const Game = ({ gameStore }) => {
+  let [poopDelay, setPoopDelay] = useState(gameStore.poopRate * 1000);
+
   useEffect(() => {
     const height = document.getElementById('poop-area').clientHeight;
     const width = document.getElementById('poop-area').clientWidth;
@@ -22,8 +24,10 @@ const Game = ({ gameStore }) => {
   const feedPet = () => {
     document.getElementById('eatSound').play();
     gameStore.updateAttribute(gameStore.hunger, -15);
-    gameStore.updateAttribute(gameStore.happiness, +10);
+    gameStore.updateAttribute(gameStore.happiness, +5);
+    gameStore.recentlyFed = gameStore.recentlyFed + 1;
   };
+
   const cleanPet = () => {
     document.getElementById('bathSound').play();
     while (gameStore.poopStore.poops>0) {
@@ -39,11 +43,22 @@ const Game = ({ gameStore }) => {
     }
     
   };
+
   const petPet = () => {
     document.getElementById('laughSound').play();
     gameStore.updateAttribute(gameStore.happiness, 5);
   };
 
+  const poopDelaySetter = () => {
+    let delta = (gameStore.poopRate * 1000) - (gameStore.recentlyFed * 500);
+    if (delta <= 0) {
+      delta = 250
+    }
+    setPoopDelay(delta);
+    gameStore.updateRecentlyFed(-1);
+    console.log(delta);
+    console.log(gameStore.recentlyFed);
+  }
 
   useInterval(() => {
     gameStore.updateAttributes();
@@ -52,8 +67,8 @@ const Game = ({ gameStore }) => {
 
   useInterval(() => {
     gameStore.poopStore.createPoop();
-  }, 3000);
-
+    poopDelaySetter();
+  }, poopDelay);
 
    const clearAll = (()=> {
     for (var i = setTimeout(function() {}, 0); i > 0; i--) {
