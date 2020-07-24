@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e48e92652463da28dbb758a1acf5788d",
+    "revision": "5dbe3a0e0431b7e686d58feadcecc25e",
     "url": "/petpet/index.html"
   },
   {
-    "revision": "a5040dd7358dfcb8ef0c",
+    "revision": "9c1350d55dfa604d6b16",
     "url": "/petpet/static/css/2.af3c1da9.chunk.css"
   },
   {
-    "revision": "426bf5052f6f8929fae9",
+    "revision": "9cde6a65c21d23da1de8",
     "url": "/petpet/static/css/main.30112b22.chunk.css"
   },
   {
-    "revision": "a5040dd7358dfcb8ef0c",
-    "url": "/petpet/static/js/2.62a058e9.chunk.js"
+    "revision": "9c1350d55dfa604d6b16",
+    "url": "/petpet/static/js/2.b918ad3c.chunk.js"
   },
   {
     "revision": "232aae28f8ee03096b30a3e0fbca302d",
-    "url": "/petpet/static/js/2.62a058e9.chunk.js.LICENSE.txt"
+    "url": "/petpet/static/js/2.b918ad3c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "426bf5052f6f8929fae9",
-    "url": "/petpet/static/js/main.e0963146.chunk.js"
+    "revision": "9cde6a65c21d23da1de8",
+    "url": "/petpet/static/js/main.4b231f09.chunk.js"
   },
   {
     "revision": "62e63ab548189ace5a1c",
