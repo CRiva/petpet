@@ -1,15 +1,15 @@
 import { action, observable, reaction } from "mobx";
 import StatusStore from './StatusStore';
 
-// reaction(
-//   this.hunger.percentage,
-//   (hungerLevel) => hungerLevel === 100 ? this.updateAttribute(this.happiness, -(this.hungerRate)) : null
-// )
+import sadFace from '../sad.png';
+import neturalFace from '../netural.png';
+import happyFace from '../happy.png';
 
 export class GameStore {
   @observable hunger;
   @observable happiness;
   @observable dirtiness;
+  @observable image;
 
   hungerRate = 5;
   happinessRate = -1;
@@ -27,6 +27,8 @@ export class GameStore {
     this.hunger = hunger || new StatusStore({ name: 'Hunger', percentage: 10, color: 'danger' });
     this.happiness = happiness || new StatusStore({ name: 'Happiness', percentage: 100, color: 'success' });
     this.dirtiness = dirtiness || new StatusStore({ name: 'Dirtiness', percentage: 10, color: 'secondary' });
+    this.image = happyFace;
+
     reaction(
       () => this.hunger.percentage,
       () => this.checkHunger()
@@ -34,6 +36,10 @@ export class GameStore {
     reaction(
       () => this.dirtiness.percentage,
       () => this.checkDirtiness()
+    );
+    reaction(
+      () => this.happiness.percentage,
+      () => this.checkHappiness()
     );
   }
 
@@ -59,6 +65,17 @@ export class GameStore {
     }
   };
 
+  @action
+  checkHappiness = () => {
+    if (this.happiness.percentage <= 30 ){
+      this.image = sadFace;
+    } else if (this.happiness.percentage > 60) {
+      this.image = happyFace;
+    } else{
+      this.image = neturalFace;
+    }
+  };
+
   @action.bound
   updateAttributes = () => {
     this.updateAttribute(this.hunger, this.hungerRate);
@@ -76,7 +93,6 @@ export class GameStore {
       attribute.percentage = attribute.percentage + amount;
     }
   }
-
 }
 
 export default new GameStore();

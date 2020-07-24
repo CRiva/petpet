@@ -19,8 +19,6 @@ const Game = ({ gameStore }) => {
   };
 
   useInterval(() => {
-    // console.log(gameStore);
-    // Your custom logic here
     gameStore.updateAttributes();
   }, 1000);
 
@@ -30,7 +28,7 @@ const Game = ({ gameStore }) => {
       <br />
       <br />
       <br />
-      <Pet petPet={petPet} />
+      <Pet petPet={petPet} image={gameStore.image} />
       <br />
       <br />
       <ActionBar feedPet={feedPet} cleanPet={cleanPet} />

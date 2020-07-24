@@ -1,12 +1,11 @@
 import React from 'react';
 import Row from 'react-bootstrap/Row';
 
-import pet from '../Pug.png';
 
-const Pet = ({ petPet }) => {
+const Pet = ({ petPet, image }) => {
   return(
     <Row className='justify-content-md-center'>
-      <img onClick={petPet} src={pet} alt='Pet' />
+      <img onClick={petPet} src={image} alt='Pet' />
     </Row>
   )
 }
