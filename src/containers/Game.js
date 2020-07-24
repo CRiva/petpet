@@ -30,11 +30,6 @@ const Game = ({ gameStore }) => {
 
   const cleanPet = () => {
     document.getElementById('bathSound').play();
-    while (gameStore.poopStore.poops>0) {
-
-      gameStore.poopStore.poopArea.removeChild(gameStore.poopStore.poopArea.lastChild);
-      gameStore.poopStore.poops -=1;
-  }
     gameStore.dirtiness.percentage = 0;
     if (gameStore.isHungry){
       gameStore.updateAttribute(gameStore.happiness, +50);
