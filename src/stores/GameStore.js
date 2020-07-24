@@ -1,18 +1,20 @@
 import { action, observable, reaction } from "mobx";
 import StatusStore from './StatusStore';
 
-// reaction(
-//   this.hunger.percentage,
-//   (hungerLevel) => hungerLevel === 100 ? this.updateAttribute(this.happiness, -(this.hungerRate)) : null
-// )
+import PoopStore from './PoopStore';
+import sadFace from '../sad.png';
+import neturalFace from '../netural.png';
+import happyFace from '../happy.png';
 
 export class GameStore {
   @observable hunger;
   @observable happiness;
   @observable dirtiness;
+  @observable image;
+  @observable poopStore;
 
   hungerRate = 5;
-  happinessRate = -1;
+  happinessRate = -2;
   dirtinessRate = 3;
 
   isHungry = false;
@@ -24,16 +26,24 @@ export class GameStore {
       happiness,
       dirtiness
     } = attributes;
-    this.hunger = hunger || new StatusStore({ name: 'Hunger', percentage: 10, color: 'danger' });
+    this.hunger = hunger || new StatusStore({ name: 'Hunger', percentage: 0, color: 'danger' });
     this.happiness = happiness || new StatusStore({ name: 'Happiness', percentage: 100, color: 'success' });
-    this.dirtiness = dirtiness || new StatusStore({ name: 'Dirtiness', percentage: 10, color: 'secondary' });
+    this.dirtiness = dirtiness || new StatusStore({ name: 'Dirtiness', percentage: 0, color: 'secondary' });
+    this.poop = new PoopStore();
+    this.image = happyFace;
+    this.checkDirtiness();
+
     reaction(
       () => this.hunger.percentage,
       () => this.checkHunger()
     );
     reaction(
-      () => this.dirtiness.percentage,
+      () => this.poopStore.poops,
       () => this.checkDirtiness()
+    );
+    reaction(
+      () => this.happiness.percentage,
+      () => this.checkHappiness()
     );
   }
 
@@ -50,12 +60,24 @@ export class GameStore {
 
   @action
   checkDirtiness = () => {
+    this.dirtinessRate = this.poopStore.poops;
     if (this.dirtiness.percentage === 100 && !this.isDirty){
       this.happinessRate = this.happinessRate + -(this.dirtinessRate)
       this.isDirty = true;
     } else if (this.dirtiness.percentage < 100 && this.isDirty) {
       this.happinessRate = this.happinessRate + this.dirtinessRate;
       this.isDirty = false;
+    }
+  };
+
+  @action
+  checkHappiness = () => {
+    if (this.happiness.percentage <= 30 ){
+      this.image = sadFace;
+    } else if (this.happiness.percentage > 60) {
+      this.image = happyFace;
+    } else{
+      this.image = neturalFace;
     }
   };
 
@@ -76,7 +98,6 @@ export class GameStore {
       attribute.percentage = attribute.percentage + amount;
     }
   }
-
 }
 
 export default new GameStore();

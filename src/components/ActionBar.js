@@ -24,7 +24,7 @@ const ActionBar = ({ feedPet, cleanPet }) => {
           </Figure.Caption>
         </Figure>
       </Col>
-      <Col md={{ span: 4, offset: 4 }} >
+      <Col md={{  offset: 4 }} >
         <Figure>
           <Figure.Image
             width={171}

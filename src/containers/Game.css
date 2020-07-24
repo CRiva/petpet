@@ -5,3 +5,13 @@
 .progress-bar {
   font-size: 1rem;
 }
+
+.poop {
+  display:none;
+  position:absolute;
+  z-index: 100;
+}
+
+.gameOver{
+  display:none;
+}
