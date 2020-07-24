@@ -16,7 +16,7 @@ const App = () => {
     <Provider {...stores}>
       <Container className='App-Container' >
         <Row>
-          <Col>
+          <Col xs={12}>
             <Game />
           </Col>
         </Row>

@@ -7,13 +7,8 @@ import Pet from '../components/Pet';
 import ActionBar from '../components/ActionBar';
 import { useInterval } from '../helpers/useInterval';
 import PoopArea from '../components/PoopArea';
-import poop from '../poop.png';
 import HiddenArea from '../components/HiddenArea';
 
-import bathSound from '../bathSound.mp3'
-import eatSound from '../eatSound.mp3'
-import laughSound from '../lol.mp3'
-import pickPoopSound from '../pickPoop.mp3'
 
 
 const Game = ({ gameStore }) => {
@@ -69,7 +64,6 @@ const Game = ({ gameStore }) => {
   });
 
   useInterval(() => {
-    
     if(gameStore.poopStore.poops > 5){
       while (gameStore.poopStore.poopArea.hasChildNodes()) {
         gameStore.poopStore.poopArea.removeChild(gameStore.poopStore.poopArea.lastChild);
@@ -91,25 +85,7 @@ const Game = ({ gameStore }) => {
 
   return useObserver(() => (
     <div>
-      <HiddenArea>
-        <img src={poop} className="poop" id ="hiddenPoop" alt="Poop"/>
-        <div className="gameOver">
-          <h1>Your pet died from being burried in it's own crap... Are you sure you're ready to be a pet owner?</h1>
-          <h1>Click the poop to restart</h1>
-        </div>
-        <audio id="bathSound">
-            <source src={bathSound}></source>
-        </audio>
-        <audio id="eatSound">
-            <source src={eatSound}></source>
-        </audio>
-        <audio id="laughSound">
-            <source src={laughSound}></source>
-        </audio>
-        <audio id="pickPoopSound">
-            <source src={pickPoopSound}></source>
-        </audio>
-      </HiddenArea>
+      <HiddenArea />
       <PoopArea>
         <StatusHeader gameStore={gameStore} />
         
