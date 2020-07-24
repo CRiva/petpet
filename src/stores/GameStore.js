@@ -1,6 +1,7 @@
 import { action, observable, reaction } from "mobx";
 import StatusStore from './StatusStore';
 
+import PoopStore from './PoopStore';
 import sadFace from '../sad.png';
 import neturalFace from '../netural.png';
 import happyFace from '../happy.png';
@@ -10,9 +11,10 @@ export class GameStore {
   @observable happiness;
   @observable dirtiness;
   @observable image;
+  @observable poopStore;
 
   hungerRate = 5;
-  happinessRate = -1;
+  happinessRate = -2;
   dirtinessRate = 3;
 
   isHungry = false;
@@ -27,14 +29,16 @@ export class GameStore {
     this.hunger = hunger || new StatusStore({ name: 'Hunger', percentage: 10, color: 'danger' });
     this.happiness = happiness || new StatusStore({ name: 'Happiness', percentage: 100, color: 'success' });
     this.dirtiness = dirtiness || new StatusStore({ name: 'Dirtiness', percentage: 10, color: 'secondary' });
+    this.poopStore = new PoopStore();
     this.image = happyFace;
+    this.checkDirtiness();
 
     reaction(
       () => this.hunger.percentage,
       () => this.checkHunger()
     );
     reaction(
-      () => this.dirtiness.percentage,
+      () => this.poopStore.poops,
       () => this.checkDirtiness()
     );
     reaction(
@@ -56,6 +60,7 @@ export class GameStore {
 
   @action
   checkDirtiness = () => {
+    this.dirtinessRate = this.poopStore.poops;
     if (this.dirtiness.percentage === 100 && !this.isDirty){
       this.happinessRate = this.happinessRate + -(this.dirtinessRate)
       this.isDirty = true;
